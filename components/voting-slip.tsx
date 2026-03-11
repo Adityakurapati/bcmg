@@ -67,7 +67,7 @@ export function VotingSlip({ voter, isModal = false, onClose }: VotingSlipProps)
 
         <div className="bg-amber-50 p-1.5 rounded">
           <p className="text-foreground/60 text-xs font-medium">ENROLMENT NO.</p>
-          <p className="font-bold text-foreground text-xs">{voter.enrolment_no}</p>
+          <p className="font-bold text-foreground text-xs">{voter.enrollment_no}</p>
         </div>
 
         {voter.address && (
@@ -141,7 +141,7 @@ export function VotingSlip({ voter, isModal = false, onClose }: VotingSlipProps)
 
               <div className="bg-amber-50 p-1.5 rounded">
                 <p className="text-foreground/60 text-xs font-medium">ENROLMENT NO.</p>
-                <p className="font-bold text-foreground text-xs">{voter.enrolment_no}</p>
+                <p className="font-bold text-foreground text-xs">{voter.enrollment_no}</p>
               </div>
 
               {voter.address && (

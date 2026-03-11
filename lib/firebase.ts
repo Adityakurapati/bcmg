@@ -1,15 +1,15 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get } from 'firebase/database';
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, get } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCY3q8rEMOQvGgw-yVtHb57szQkA-O8kKk",
-  authDomain: "bcmg-587f5.firebaseapp.com",
-  databaseURL: "https://bcmg-587f5-default-rtdb.firebaseio.com",
-  projectId: "bcmg-587f5",
-  storageBucket: "bcmg-587f5.firebasestorage.app",
-  messagingSenderId: "15928842083",
-  appId: "1:15928842083:web:25cc388ba46b526c69a556",
-  measurementId: "G-75C0LSED44"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 let app: any;
@@ -19,7 +19,7 @@ try {
   app = initializeApp(firebaseConfig);
   database = getDatabase(app);
 } catch (error) {
-  console.error('Firebase initialization error:', error);
+  console.error("Firebase initialization error:", error);
 }
 
 export { database, app };
@@ -28,25 +28,26 @@ export const getVotersBySerialNo = async (serialNo: string) => {
   try {
     const votersRef = ref(database, `voters/${serialNo}`);
     const snapshot = await get(votersRef);
-    
+
     if (snapshot.exists()) {
       return {
         sr_no: serialNo,
-        ...snapshot.val(),
+        ...snapshot.val()
       };
     }
+
     return null;
   } catch (error) {
-    console.error('Error fetching voter:', error);
+    console.error("Error fetching voter:", error);
     return null;
   }
 };
 
 export const searchVotersByName = async (name: string) => {
   try {
-    const indexRef = ref(database, 'indexes');
+    const indexRef = ref(database, "indexes");
     const snapshot = await get(indexRef);
-    
+
     if (!snapshot.exists()) {
       return [];
     }
@@ -54,7 +55,6 @@ export const searchVotersByName = async (name: string) => {
     const indexes = snapshot.val();
     const matchingSerialNos: string[] = [];
 
-    // Search for matching names in indexes
     for (const [indexName, serialNos] of Object.entries(indexes)) {
       if (
         indexName.toLowerCase().includes(name.toLowerCase()) ||
@@ -65,8 +65,8 @@ export const searchVotersByName = async (name: string) => {
       }
     }
 
-    // Fetch voter details for matching serial numbers
     const voters = [];
+
     for (const serialNo of matchingSerialNos) {
       const voter = await getVotersBySerialNo(serialNo);
       if (voter) {
@@ -76,7 +76,7 @@ export const searchVotersByName = async (name: string) => {
 
     return voters;
   } catch (error) {
-    console.error('Error searching voters by name:', error);
+    console.error("Error searching voters by name:", error);
     return [];
   }
 };

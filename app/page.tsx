@@ -8,12 +8,17 @@ import { VotingSlip } from '@/components/voting-slip';
 import { AlertCircle, Search, Hash, Phone } from 'lucide-react';
 
 export default function HomePage() {
-  const [searchMode, setSearchMode] = useState<'name' | 'enrollment'>('name');
+
+  // ✅ Default search = enrollment
+  const [searchMode, setSearchMode] = useState<'name' | 'enrollment'>('enrollment');
+
   const [voterName, setVoterName] = useState('');
   const [enrollmentField2, setEnrollmentField2] = useState('');
   const [enrollmentField3, setEnrollmentField3] = useState('');
+
   const [voters, setVoters] = useState<Voter[]>([]);
   const [selectedVoter, setSelectedVoter] = useState<Voter | null>(null);
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +32,7 @@ export default function HomePage() {
     setError('');
 
     let searchQuery = '';
+
     if (searchMode === 'name') {
       if (!voterName.trim()) {
         setError('Please enter a voter name');
@@ -35,16 +41,20 @@ export default function HomePage() {
       searchQuery = voterName;
     } else {
       const enrollmentId = constructEnrollmentId();
+
       if (!enrollmentId) {
         setError('Please fill both fields');
         return;
       }
+
       searchQuery = enrollmentId;
     }
 
     setLoading(true);
+
     try {
       const params = new URLSearchParams();
+
       if (searchMode === 'name') {
         params.append('name', searchQuery);
       } else {
@@ -63,9 +73,10 @@ export default function HomePage() {
       } else {
         setVoters(data);
       }
+
     } catch (err) {
       setError('Search failed. Try again.');
-      console.error('Search error:', err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -87,163 +98,291 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex flex-col">
-      {/* Header */}
+
+      {/* HEADER */}
       <header className="bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white py-4 px-4 shadow-lg">
         <div className="text-center">
-          <h1 className="text-xl font-bold">Bar Council of Maharashtra & Goa</h1>
-          <p className="text-xs opacity-90 font-medium">Elections 2026</p>
+          <h1 className="text-xl font-bold">
+            Bar Council of Maharashtra & Goa
+          </h1>
+          <p className="text-xs opacity-90 font-medium">
+            Elections 2026
+          </p>
         </div>
       </header>
 
-      {/* Content */}
-      <div className="flex-1 flex flex-col px-4 py-6 gap-6">
-        {/* Candidate Card */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-amber-200">
-          <div className="flex gap-3 p-4">
-            <div className="flex-shrink-0">
-              <div className="relative w-16 h-20 rounded-lg overflow-hidden border-2 border-amber-200">
-                <Image
-                  src="/madhavi-potdar.jpeg"
-                  alt="ADV. Madhavi Bal Potdar"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
-            <div className="flex-1 min-w-0 space-y-1.5">
-              <div className="flex items-center gap-2">
-                <div className="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-xs">
-                  109
-                </div>
-                <span className="text-xs text-foreground/60">Sr. No.</span>
-              </div>
-              <div>
-                <p className="text-xs text-foreground/60 font-medium">Candidate</p>
-                <p className="font-bold text-xs text-foreground">Adv. Madhavi Bal Potdar</p>
-              </div>
-              <div>
-                <p className="text-xs text-foreground/60 font-medium">Preference</p>
-                <p className="font-bold text-xs text-foreground">#1</p>
-              </div>
-              <p className="text-xs text-foreground/70 italic line-clamp-2">
-                Official Candidate BCMG Elections 2026
-              </p>
-              <div className="flex gap-2 pt-1">
-                <span className="text-xs text-foreground/60">📅 24 Mar 2026</span>
-                <a
-                  href="tel:+919881001766"
-                  className="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white rounded-md px-2 py-1 text-xs font-semibold transition-colors"
-                >
-                  <Phone className="w-3 h-3" />
-                  Call
-                </a>
-              </div>
-            </div>
+      {/* LOGO + SERIAL */}
+      <div className="w-full max-w-4xl mx-auto mt-4 px-4">
+
+        <div className="grid grid-cols-10 gap-3 items-center">
+
+          {/* LOGO */}
+          <div className="col-span-3 flex items-center">
+            <Image
+              src="/logo.png"
+              alt="Campaign Logo"
+              width={200}
+              height={80}
+              priority
+              className="
+                object-contain
+                w-full
+                max-w-[140px]
+                sm:max-w-[120px]
+                md:max-w-[100px]
+                h-auto
+              "
+            />
           </div>
+
+          {/* SERIAL */}
+          <div className="col-span-7 bg-primary text-white rounded-md flex flex-col justify-center items-center h-16 shadow-sm">
+            <p className="text-xs leading-tight">
+              1st / Best Preference
+            </p>
+
+            <p className="text-base font-bold leading-tight">
+              Serial No. 109
+            </p>
+          </div>
+
         </div>
+      </div>
 
-        {/* Search Form */}
-        <div className="bg-white rounded-xl shadow-lg p-5 border border-border">
-          <h3 className="font-bold text-foreground mb-4">Find Voting Slip</h3>
 
-          {/* Toggle Buttons */}
-          <div className="grid grid-cols-2 gap-2 mb-5 bg-muted p-1 rounded-lg">
+      {/* CONTENT */}
+      <div className="flex-1 flex flex-col px-4 py-6 gap-6 max-w-md mx-auto w-full">
+
+        {/* SEARCH CARD */}
+        <div className="bg-white rounded-xl shadow-lg p-5 border">
+
+          <h3 className="font-bold mb-4">
+            Find Voting Slip
+          </h3>
+
+          {/* SEARCH TOGGLE */}
+          <div className="grid grid-cols-2 gap-2 mb-5 bg-gray-100 p-1 rounded-lg">
+
             <button
               onClick={() => {
                 setSearchMode('name');
                 setError('');
               }}
-              className={`py-2 px-3 rounded-md font-semibold text-xs transition-all flex items-center justify-center gap-1 ${
-                searchMode === 'name'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-transparent text-foreground'
-              }`}
+              className={`py-2 px-3 rounded-md font-semibold text-xs flex items-center justify-center gap-1
+              ${searchMode === 'name'
+                  ? 'bg-primary text-white'
+                  : 'text-gray-700'
+                }`}
             >
               <Search className="w-3 h-3" />
               By Name
             </button>
+
             <button
               onClick={() => {
                 setSearchMode('enrollment');
                 setError('');
               }}
-              className={`py-2 px-3 rounded-md font-semibold text-xs transition-all flex items-center justify-center gap-1 ${
-                searchMode === 'enrollment'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-transparent text-foreground'
-              }`}
+              className={`py-2 px-3 rounded-md font-semibold text-xs flex items-center justify-center gap-1
+              ${searchMode === 'enrollment'
+                  ? 'bg-primary text-white'
+                  : 'text-gray-700'
+                }`}
             >
               <Hash className="w-3 h-3" />
               By Enrollment ID
             </button>
+
           </div>
 
-          {/* Search Inputs */}
+          {/* FORM */}
           <form onSubmit={handleSearch} className="space-y-4">
+
             {searchMode === 'name' ? (
-              <div>
-                <input
-                  type="text"
-                  value={voterName}
-                  onChange={(e) => setVoterName(e.target.value)}
-                  placeholder="Enter voter name"
-                  autoFocus
-                  className="w-full border-2 border-input rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-                />
-              </div>
+
+              <input
+                type="text"
+                value={voterName}
+                onChange={(e) => setVoterName(e.target.value)}
+                placeholder="Enter voter name"
+                autoFocus
+                className="
+                  w-full
+                  border-2
+                  rounded-lg
+                  px-3
+                  py-2
+                  text-sm
+                  focus:outline-none
+                  focus:border-primary
+                "
+              />
+
             ) : (
+
               <div>
-                <div className="flex gap-1.5 items-center">
-                  <div className="px-3 py-2 bg-primary text-primary-foreground rounded-lg font-bold text-sm">
+
+                {/* FIXED WIDTH PREVENT OVERFLOW */}
+                <div className="flex items-center gap-2 justify-between">
+
+                  <div className="px-3 py-2 bg-primary text-white rounded-lg font-bold text-sm shrink-0">
                     MAH
                   </div>
+
                   <input
                     type="text"
                     value={enrollmentField2}
                     onChange={(e) =>
-                      setEnrollmentField2(e.target.value.replace(/\D/g, '').slice(0, 4))
+                      setEnrollmentField2(
+                        e.target.value.replace(/\D/g, '').slice(0, 4)
+                      )
                     }
                     placeholder="31"
-                    maxLength="4"
-                    autoFocus
-                    className="flex-1 border-2 border-input rounded-lg px-2 py-2 text-center text-sm font-bold focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    maxLength={4}
+                    className="
+                      w-20
+                      border-2
+                      rounded-lg
+                      px-2
+                      py-2
+                      text-center
+                      text-sm
+                      font-bold
+                      focus:outline-none
+                      focus:border-primary
+                    "
                   />
-                  <span className="text-muted-foreground font-bold">_</span>
+
+                  <span className="font-bold text-gray-400 shrink-0">
+                    _
+                  </span>
+
                   <input
                     type="text"
                     value={enrollmentField3}
                     onChange={(e) =>
-                      setEnrollmentField3(e.target.value.replace(/\D/g, '').slice(0, 4))
+                      setEnrollmentField3(
+                        e.target.value.replace(/\D/g, '').slice(0, 4)
+                      )
                     }
                     placeholder="1989"
-                    maxLength="4"
-                    className="flex-1 border-2 border-input rounded-lg px-2 py-2 text-center text-sm font-bold focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    maxLength={4}
+                    className="
+                      w-24
+                      border-2
+                      rounded-lg
+                      px-2
+                      py-2
+                      text-center
+                      text-sm
+                      font-bold
+                      focus:outline-none
+                      focus:border-primary
+                    "
                   />
+
                 </div>
-                <p className="text-xs text-muted-foreground mt-2">Format: MAH_31_1989</p>
+
+
               </div>
+
             )}
 
             {error && (
               <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
-                <span className="text-xs text-red-700">{error}</span>
+                <AlertCircle className="w-4 h-4 text-red-600" />
+                <span className="text-xs text-red-700">
+                  {error}
+                </span>
               </div>
             )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary hover:bg-primary/90 disabled:opacity-60 text-primary-foreground font-bold py-2.5 px-4 rounded-lg transition-colors text-sm"
+              className="
+                w-full
+                bg-primary
+                text-white
+                font-bold
+                py-2.5
+                rounded-lg
+                text-sm
+                hover:bg-primary/90
+              "
             >
               {loading ? 'Searching...' : 'Search'}
             </button>
+
           </form>
+        </div>
+
+        {/* CANDIDATE CARD */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-amber-200">
+
+          <div className="flex gap-3 p-4">
+
+            <div className="relative w-16 h-20 rounded-lg overflow-hidden border-2 border-amber-200">
+
+              <Image
+                src="/madhavi-potdar.jpeg"
+                alt="ADV. Madhavi Bal Potdar"
+                fill
+                className="object-cover"
+                priority
+              />
+
+            </div>
+
+            <div className="flex-1 space-y-1">
+
+              <div className="flex items-center gap-2">
+
+                <div className="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-xs">
+                  109
+                </div>
+
+                <span className="text-xs text-gray-600">
+                  Sr. No.
+                </span>
+
+              </div>
+
+              <p className="font-bold text-xs">
+                Adv. Madhavi Bal Potdar
+              </p>
+
+              <p className="text-xs text-gray-600">
+                Preference: <b>#1</b>
+              </p>
+
+              <p className="text-xs text-gray-500 italic">
+                Official Candidate BCMG Elections 2026
+              </p>
+
+              <div className="flex gap-2 pt-1">
+
+                <span className="text-xs text-gray-600">
+                  📅 24 Mar 2026
+                </span>
+
+                <a
+                  href="tel:+919881001766"
+                  className="flex items-center gap-1 bg-green-600 text-white rounded-md px-2 py-1 text-xs font-semibold hover:bg-green-700"
+                >
+                  <Phone className="w-3 h-3" />
+                  Call
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </div>
 
-      {/* Modals */}
+      {/* RESULTS */}
       {voters.length > 1 && (
         <VotingResults
           voters={voters}
@@ -259,6 +398,7 @@ export default function HomePage() {
           onClose={() => handleReset()}
         />
       )}
+
     </main>
   );
 }

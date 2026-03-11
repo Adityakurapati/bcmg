@@ -1,7 +1,7 @@
 export interface Voter {
   name: string;
   sr_no: string;
-  enrolment_no: string;
+  enrollment_no: string;
   address: string;
   city?: string;
   bar_association?: string;
