@@ -107,13 +107,13 @@ export default function HomePage() {
 
       <header className="bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white py-3 px-4 shadow-lg">
 
-        <div className="max-w-6xl mx-auto flex items-center gap-5 py-6">
+        <div className="max-w-6xl mx-auto flex items-center gap-5 py-2">
 
           <Image
             src="/logo.png"
             alt="Campaign Logo"
-            width={60}
-            height={60}
+            width={90}
+            height={90}
             priority
           />
 
@@ -276,7 +276,7 @@ export default function HomePage() {
 
             <div className="flex gap-3 p-4">
 
-              <div className="relative w-16 h-20 rounded-lg overflow-hidden border-2 border-amber-200">
+              <div className="relative w-20 h-26 rounded-lg overflow-hidden border-2 border-amber-200">
 
                 <Image
                   src="/madhavi-potdar.jpeg"
@@ -302,7 +302,7 @@ export default function HomePage() {
 
                 </div>
 
-                <p className="font-bold text-xs">
+                <p className="font-bold text-md">
                   Adv. Madhavi Bal Potdar
                 </p>
 
