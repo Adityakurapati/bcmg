@@ -107,7 +107,7 @@ export default function HomePage() {
 
       <header className="bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white py-3 px-4 shadow-lg">
 
-        <div className="max-w-6xl mx-auto flex items-center gap-3">
+        <div className="max-w-6xl mx-auto flex items-center gap-5 py-6">
 
           <Image
             src="/logo.png"
