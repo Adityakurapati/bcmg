@@ -188,13 +188,6 @@ export function VotingSlip({ voter, isModal = false, onClose }: VotingSlipProps)
             </p>
           </div>
 
-          <div className="bg-amber-50 p-1.5 rounded">
-            <p className="text-gray-500 text-xs font-medium">
-              SERIAL NO.
-            </p>
-            <p className="font-bold text-xs">
-              {voter.sr_no}
-            </p>
           </div>
 
         </div>
