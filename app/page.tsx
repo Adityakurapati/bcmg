@@ -112,18 +112,18 @@ export default function HomePage() {
           <Image
             src="/logo.png"
             alt="Campaign Logo"
-            width={42}
-            height={42}
+            width={60}
+            height={60}
             priority
           />
 
           <div className="leading-tight">
 
-            <h1 className="font-bold text-sm sm:text-base">
+            <h1 className="font-bold text-md sm:text-md">
               Bar Council of Maharashtra & Goa
             </h1>
 
-            <p className="text-xs opacity-90">
+            <p className="text-md opacity-90">
               Elections 2026
             </p>
 
@@ -272,68 +272,68 @@ export default function HomePage() {
 
           {/* CANDIDATE CARD */}
 
-         <div className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-amber-200">
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-amber-200">
 
-          <div className="flex gap-3 p-4">
+            <div className="flex gap-3 p-4">
 
-            <div className="relative w-16 h-20 rounded-lg overflow-hidden border-2 border-amber-200">
+              <div className="relative w-16 h-20 rounded-lg overflow-hidden border-2 border-amber-200">
 
-              <Image
-                src="/madhavi-potdar.jpeg"
-                alt="ADV. Madhavi Bal Potdar"
-                fill
-                className="object-cover"
-                priority
-              />
+                <Image
+                  src="/madhavi-potdar.jpeg"
+                  alt="ADV. Madhavi Bal Potdar"
+                  fill
+                  className="object-cover"
+                  priority
+                />
 
-            </div>
+              </div>
 
-            <div className="flex-1 space-y-1">
+              <div className="flex-1 space-y-1">
 
-              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
 
-                <div className="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-xs">
-                  109
+                  <div className="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-xs">
+                    109
+                  </div>
+
+                  <span className="text-xs text-gray-600">
+                    Sr. No.
+                  </span>
+
                 </div>
 
-                <span className="text-xs text-gray-600">
-                  Sr. No.
-                </span>
+                <p className="font-bold text-xs">
+                  Adv. Madhavi Bal Potdar
+                </p>
 
-              </div>
+                <p className="text-xs text-gray-600">
+                  Preference: <b>#1</b>
+                </p>
 
-              <p className="font-bold text-xs">
-                Adv. Madhavi Bal Potdar
-              </p>
+                <p className="text-xs text-gray-500 italic">
+                  Official Candidate BCMG Elections 2026
+                </p>
 
-              <p className="text-xs text-gray-600">
-                Preference: <b>#1</b>
-              </p>
+                <div className="flex gap-2 pt-1">
 
-              <p className="text-xs text-gray-500 italic">
-                Official Candidate BCMG Elections 2026
-              </p>
+                  <span className="text-xs text-gray-600">
+                    📅 24 Mar 2026
+                  </span>
 
-              <div className="flex gap-2 pt-1">
+                  <a
+                    href="tel:+919881001766"
+                    className="flex items-center gap-1 bg-green-600 text-white rounded-md px-2 py-1 text-xs font-semibold hover:bg-green-700"
+                  >
+                    <Phone className="w-3 h-3" />
+                    Call
+                  </a>
 
-                <span className="text-xs text-gray-600">
-                  📅 24 Mar 2026
-                </span>
-
-                <a
-                  href="tel:+919881001766"
-                  className="flex items-center gap-1 bg-green-600 text-white rounded-md px-2 py-1 text-xs font-semibold hover:bg-green-700"
-                >
-                  <Phone className="w-3 h-3" />
-                  Call
-                </a>
+                </div>
 
               </div>
 
             </div>
-
           </div>
-        </div>
 
         </div>
 
