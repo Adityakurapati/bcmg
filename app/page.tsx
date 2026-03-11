@@ -9,7 +9,6 @@ import { AlertCircle, Search, Hash, Phone } from 'lucide-react';
 
 export default function HomePage() {
 
-  // ✅ Default search = enrollment
   const [searchMode, setSearchMode] = useState<'name' | 'enrollment'>('enrollment');
 
   const [voterName, setVoterName] = useState('');
@@ -53,6 +52,7 @@ export default function HomePage() {
     setLoading(true);
 
     try {
+
       const params = new URLSearchParams();
 
       if (searchMode === 'name') {
@@ -67,17 +67,20 @@ export default function HomePage() {
       if (!Array.isArray(data) || data.length === 0) {
         setError('No voters found');
         setVoters([]);
-      } else if (data.length === 1) {
+      }
+      else if (data.length === 1) {
         setSelectedVoter(data[0]);
         setVoters([]);
-      } else {
+      }
+      else {
         setVoters(data);
       }
 
     } catch (err) {
       setError('Search failed. Try again.');
       console.error(err);
-    } finally {
+    }
+    finally {
       setLoading(false);
     }
   };
@@ -97,140 +100,116 @@ export default function HomePage() {
   };
 
   return (
+
     <main className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex flex-col">
 
       {/* HEADER */}
-      <header className="bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white py-4 px-4 shadow-lg">
-        <div className="text-center">
-          <h1 className="text-xl font-bold">
-            Bar Council of Maharashtra & Goa
-          </h1>
-          <p className="text-xs opacity-90 font-medium">
-            Elections 2026
-          </p>
+
+      <header className="bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white py-3 px-4 shadow-lg">
+
+        <div className="max-w-6xl mx-auto flex items-center gap-3">
+
+          <Image
+            src="/logo.png"
+            alt="Campaign Logo"
+            width={42}
+            height={42}
+            priority
+          />
+
+          <div className="leading-tight">
+
+            <h1 className="font-bold text-sm sm:text-base">
+              Bar Council of Maharashtra & Goa
+            </h1>
+
+            <p className="text-xs opacity-90">
+              Elections 2026
+            </p>
+
+          </div>
+
         </div>
+
       </header>
 
-      {/* LOGO + SERIAL */}
-      <div className="w-full max-w-4xl mx-auto mt-4 px-4">
+      {/* MAIN CONTENT */}
 
-        <div className="grid grid-cols-10 gap-3 items-center">
+      <div className="flex-1 w-full max-w-6xl mx-auto px-4 py-6">
 
-          {/* LOGO */}
-          <div className="col-span-3 flex items-center">
-            <Image
-              src="/logo.png"
-              alt="Campaign Logo"
-              width={200}
-              height={80}
-              priority
-              className="
-                object-contain
-                w-full
-                max-w-[140px]
-                sm:max-w-[120px]
-                md:max-w-[100px]
-                h-auto
-              "
-            />
-          </div>
+        <div className="grid md:grid-cols-2 gap-6">
 
-          {/* SERIAL */}
-          <div className="col-span-7 bg-primary text-white rounded-md flex flex-col justify-center items-center h-16 shadow-sm">
-            <p className="text-xs leading-tight">
-              1st / Best Preference
-            </p>
+          {/* SEARCH CARD */}
 
-            <p className="text-base font-bold leading-tight">
-              Serial No. 109
-            </p>
-          </div>
+          <div className="bg-white rounded-xl shadow-lg p-5 border">
 
-        </div>
-      </div>
+            <h3 className="font-bold mb-4">
+              Find Voting Slip
+            </h3>
 
+            {/* SEARCH TOGGLE */}
 
-      {/* CONTENT */}
-      <div className="flex-1 flex flex-col px-4 py-6 gap-6 max-w-md mx-auto w-full">
+            <div className="grid grid-cols-2 gap-2 mb-5 bg-gray-100 p-1 rounded-lg">
 
-        {/* SEARCH CARD */}
-        <div className="bg-white rounded-xl shadow-lg p-5 border">
+              <button
+                onClick={() => {
+                  setSearchMode('name');
+                  setError('');
+                }}
+                className={`py-2 px-3 rounded-md font-semibold text-xs flex items-center justify-center gap-1
+                ${searchMode === 'name'
+                    ? 'bg-primary text-white'
+                    : 'text-gray-700'
+                  }`}
+              >
+                <Search className="w-3 h-3" />
+                By Name
+              </button>
 
-          <h3 className="font-bold mb-4">
-            Find Voting Slip
-          </h3>
+              <button
+                onClick={() => {
+                  setSearchMode('enrollment');
+                  setError('');
+                }}
+                className={`py-2 px-3 rounded-md font-semibold text-xs flex items-center justify-center gap-1
+                ${searchMode === 'enrollment'
+                    ? 'bg-primary text-white'
+                    : 'text-gray-700'
+                  }`}
+              >
+                <Hash className="w-3 h-3" />
+                By Enrollment ID
+              </button>
 
-          {/* SEARCH TOGGLE */}
-          <div className="grid grid-cols-2 gap-2 mb-5 bg-gray-100 p-1 rounded-lg">
+            </div>
 
-            <button
-              onClick={() => {
-                setSearchMode('name');
-                setError('');
-              }}
-              className={`py-2 px-3 rounded-md font-semibold text-xs flex items-center justify-center gap-1
-              ${searchMode === 'name'
-                  ? 'bg-primary text-white'
-                  : 'text-gray-700'
-                }`}
-            >
-              <Search className="w-3 h-3" />
-              By Name
-            </button>
+            {/* FORM */}
 
-            <button
-              onClick={() => {
-                setSearchMode('enrollment');
-                setError('');
-              }}
-              className={`py-2 px-3 rounded-md font-semibold text-xs flex items-center justify-center gap-1
-              ${searchMode === 'enrollment'
-                  ? 'bg-primary text-white'
-                  : 'text-gray-700'
-                }`}
-            >
-              <Hash className="w-3 h-3" />
-              By Enrollment ID
-            </button>
+            <form onSubmit={handleSearch} className="space-y-4">
 
-          </div>
+              {searchMode === 'name' ? (
 
-          {/* FORM */}
-          <form onSubmit={handleSearch} className="space-y-4">
+                <input
+                  type="text"
+                  value={voterName}
+                  onChange={(e) => setVoterName(e.target.value)}
+                  placeholder="Enter voter name"
+                  autoFocus
+                  className="w-full border-2 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary"
+                />
 
-            {searchMode === 'name' ? (
+              ) : (
 
-              <input
-                type="text"
-                value={voterName}
-                onChange={(e) => setVoterName(e.target.value)}
-                placeholder="Enter voter name"
-                autoFocus
-                className="
-                  w-full
-                  border-2
-                  rounded-lg
-                  px-3
-                  py-2
-                  text-sm
-                  focus:outline-none
-                  focus:border-primary
-                "
-              />
+                <div className="flex items-center gap-2">
 
-            ) : (
-
-              <div>
-
-                {/* FIXED WIDTH PREVENT OVERFLOW */}
-                <div className="flex items-center gap-2 justify-between">
-
-                  <div className="px-3 py-2 bg-primary text-white rounded-lg font-bold text-sm shrink-0">
+                  <div className="px-3 py-2 bg-primary text-white rounded-lg font-bold text-sm">
                     MAH
                   </div>
-                  <span className="font-bold text-gray-400 shrink-0">
+
+                  <span className="font-bold text-gray-400">
                     /
                   </span>
+
                   <input
                     type="text"
                     value={enrollmentField2}
@@ -241,21 +220,10 @@ export default function HomePage() {
                     }
                     placeholder="31"
                     maxLength={4}
-                    className="
-                      w-20
-                      border-2
-                      rounded-lg
-                      px-2
-                      py-2
-                      text-center
-                      text-sm
-                      font-bold
-                      focus:outline-none
-                      focus:border-primary
-                    "
+                    className="w-20 border-2 rounded-lg px-2 py-2 text-center text-sm font-bold focus:outline-none focus:border-primary"
                   />
 
-                  <span className="font-bold text-gray-400 shrink-0">
+                  <span className="font-bold text-gray-400">
                     /
                   </span>
 
@@ -269,58 +237,42 @@ export default function HomePage() {
                     }
                     placeholder="1989"
                     maxLength={4}
-                    className="
-                      w-24
-                      border-2
-                      rounded-lg
-                      px-2
-                      py-2
-                      text-center
-                      text-sm
-                      font-bold
-                      focus:outline-none
-                      focus:border-primary
-                    "
+                    className="w-24 border-2 rounded-lg px-2 py-2 text-center text-sm font-bold focus:outline-none focus:border-primary"
                   />
 
                 </div>
 
+              )}
 
-              </div>
+              {error && (
 
-            )}
+                <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
 
-            {error && (
-              <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                <AlertCircle className="w-4 h-4 text-red-600" />
-                <span className="text-xs text-red-700">
-                  {error}
-                </span>
-              </div>
-            )}
+                  <AlertCircle className="w-4 h-4 text-red-600" />
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="
-                w-full
-                bg-primary
-                text-white
-                font-bold
-                py-2.5
-                rounded-lg
-                text-sm
-                hover:bg-primary/90
-              "
-            >
-              {loading ? 'Searching...' : 'Search'}
-            </button>
+                  <span className="text-xs text-red-700">
+                    {error}
+                  </span>
 
-          </form>
-        </div>
+                </div>
 
-        {/* CANDIDATE CARD */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-amber-200">
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-primary text-white font-bold py-2.5 rounded-lg text-sm hover:bg-primary/90"
+              >
+                {loading ? 'Searching...' : 'Search'}
+              </button>
+
+            </form>
+
+          </div>
+
+          {/* CANDIDATE CARD */}
+
+         <div className="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-amber-200">
 
           <div className="flex gap-3 p-4">
 
@@ -382,9 +334,13 @@ export default function HomePage() {
 
           </div>
         </div>
+
+        </div>
+
       </div>
 
       {/* RESULTS */}
+
       {voters.length > 1 && (
         <VotingResults
           voters={voters}
@@ -402,5 +358,6 @@ export default function HomePage() {
       )}
 
     </main>
+
   );
 }
