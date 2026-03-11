@@ -188,8 +188,6 @@ export function VotingSlip({ voter, isModal = false, onClose }: VotingSlipProps)
             </p>
           </div>
 
-          </div>
-
         </div>
 
         <div className="bg-amber-50 p-1.5 rounded">
