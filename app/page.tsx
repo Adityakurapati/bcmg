@@ -228,7 +228,9 @@ export default function HomePage() {
                   <div className="px-3 py-2 bg-primary text-white rounded-lg font-bold text-sm shrink-0">
                     MAH
                   </div>
-
+                  <span className="font-bold text-gray-400 shrink-0">
+                    /
+                  </span>
                   <input
                     type="text"
                     value={enrollmentField2}
@@ -254,7 +256,7 @@ export default function HomePage() {
                   />
 
                   <span className="font-bold text-gray-400 shrink-0">
-                    _
+                    /
                   </span>
 
                   <input
