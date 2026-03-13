@@ -231,6 +231,18 @@ export function VotingSlip({ voter, isModal = false, onClose }: VotingSlipProps)
           </div>
 
         )}
+        {voter.belongs && (
+
+          <div className="bg-amber-50 p-1.5 rounded">
+            <p className="text-gray-500 text-xs font-medium">
+              Belongs
+            </p>
+            <p className="text-xs line-clamp-2">
+              {voter.belongs}
+            </p>
+          </div>
+
+        )}
 
       </div>
 
