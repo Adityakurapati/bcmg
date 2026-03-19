@@ -219,7 +219,8 @@ export function VotingSlip({ voter, isModal = false, onClose }: VotingSlipProps)
           </div>
 
         )}
-        {voter.city && (
+        <div className='grid grid-cols-2 gap-1.5'>
+          {voter.city && (
 
           <div className="bg-amber-50 p-1.5 rounded">
             <p className="text-gray-500 text-xs font-medium">
@@ -243,6 +244,7 @@ export function VotingSlip({ voter, isModal = false, onClose }: VotingSlipProps)
           </div>
 
         )}
+        </div>
 
       </div>
 
