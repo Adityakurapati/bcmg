@@ -292,11 +292,11 @@ export default function HomePage() {
 
                 <div className="flex items-center gap-2">
 
-                  <div className="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-xs">
+                  <div className="bg-red-600 text-white rounded-full w-20 h-20 flex items-center justify-center font-bold text-xl">
                     109
                   </div>
 
-                  <span className="text-xs text-gray-600">
+                  <span className="text-md text-gray-600">
                     Sr. No.
                   </span>
 
